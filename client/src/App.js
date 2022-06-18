@@ -1,12 +1,12 @@
 import logo from './logo.svg';
 import './App.css';
-import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
+import {Route, Link, HashRouter} from 'react-router-dom';
 import OtherPage from './OtherPage';
 import Fib from './Fib';
 
 function App() {
   return (
-    <Router>
+    <HashRouter>
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
@@ -19,7 +19,7 @@ function App() {
           
         </header>
       </div>
-    </Router>
+    </HashRouter>
   );
 }
 
