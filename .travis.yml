@@ -1,0 +1,20 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t fran902/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true fran902/react-test npm test
+
+after_success:
+  - docker build -t fran902/multi-client ./client
+  - docker build -t fran902/multi-nginx ./nginx
+  - docker build -t fran902/multi-server ./server
+  - docker build -t fran902/multi-worker ./worker
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push fran902/multi-client
+  - docker push fran902/multi-nginx
+  - docker push fran902/multi-server
+  - docker push fran902/multi-worker
